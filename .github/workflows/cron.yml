@@ -1,0 +1,21 @@
+name: Send Email Reminder
+
+on:
+  schedule:
+    - cron: '0 21 * * *' # UTC 时间每天晚上 21:00
+
+jobs:
+  send-email:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '^1.15' # 指定Go版本
+
+    - name: Run Send Email Program
+      run: |
+        go run ./main.go output.log
