@@ -2,7 +2,7 @@ name: Send Email Reminder
 
 on:
   schedule:
-    - cron: '5 16 * * *' # UTC 时间每天晚上 21:00
+    - cron: '18 16 * * *' # UTC 时间每天晚上 21:00
 
 jobs:
   send-email:
@@ -14,8 +14,8 @@ jobs:
     - name: Set up Go
       uses: actions/setup-go@v2
       with:
-        go-version: '^1.15' # 指定Go版本
+        go-version: '^1.20' # 指定Go版本
 
     - name: Run Send Email Program
       run: |
-        go run ./main.go output.log
+        go run main.go output.log
