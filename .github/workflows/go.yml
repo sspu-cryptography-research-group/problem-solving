@@ -1,18 +1,20 @@
 name: Send Email Reminder
 on: 
   schedule:
-    - cron: '05 17 * * *'
+    - cron: '12 17 * * *'
 
 jobs:
-  build:
-    runs-on: self-hosted
-
+  run-go-file:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '^1.20'
-      - name: Send Email
-        run: go run main.go
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: '^1.20' 
+
+    - name: Run Go file
+      run: |
+        go run ./main.go
