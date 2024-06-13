@@ -2,7 +2,7 @@ name: Send Email Reminder
 
 on:
   schedule:
-    - cron: '18 16 * * *' # UTC 时间每天晚上 21:00
+    - cron: '30 16 * * *' # UTC 时间每天晚上 21:00
 
 jobs:
   send-email:
@@ -18,4 +18,4 @@ jobs:
 
     - name: Run Send Email Program
       run: |
-        go run main.go output.log
+        go run sspu-cryptography-research-group/problem-solving/main.go output.log
