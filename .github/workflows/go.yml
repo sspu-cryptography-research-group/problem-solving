@@ -1,7 +1,7 @@
 name: Send Email Reminder
 on: 
   schedule:
-    - cron: '11 11 * * *'
+    - cron: '38 15 * * *'
 
 jobs:
   run-go-file:
