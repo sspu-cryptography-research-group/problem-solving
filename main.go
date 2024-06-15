@@ -15,7 +15,7 @@ var (
 	branchAndEmailMap map[string]string
 	repo              string = "sspu-cryptography-research-group/problem-solving"
 	//repo        = "OrangeDou/QHTLC"
-	githubToken = "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"
+	githubToken = "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"
 )
 
 func main() {
