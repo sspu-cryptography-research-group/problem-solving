@@ -1,13 +1,13 @@
 package main
 
 import (
-	"daily/utils"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
+	"problem-solving/utils"
 	"time"
 )
 
@@ -15,7 +15,8 @@ var (
 	branchAndEmailMap map[string]string
 	repo              string = "sspu-cryptography-research-group/problem-solving"
 	//repo        = "OrangeDou/QHTLC"
-	githubToken = "this is a secret token,if you want to run main code,please generate your own token and replace it!"
+	githubToken       = "this is a secret token,if you want to run main code,please generate your own token and replace it!"
+	resetContinuesDay bool
 )
 
 func main() {
@@ -85,10 +86,14 @@ func main() {
 			// 检查是否有提交
 			if len(commits) == 0 {
 				log.Printf(time.Now().String()+":No commits for branch %s today.\n", branch)
+				//今日未提交，发送邮件
 				utils.SendEmail(branch, email)
+				resetContinuesDay = true
 			} else {
-				log.Printf(time.Now().String()+":Commits found for branch %s today: %+v\n", branch, commits)
+				resetContinuesDay = false
+
 			}
+			utils.RecordStatus(branch, 1, resetContinuesDay)
 		} else {
 			log.Printf(time.Now().String()+":Failed to fetch commits, status code: %d\n", resp.StatusCode)
 		}
