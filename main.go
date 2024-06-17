@@ -14,7 +14,8 @@ import (
 var (
 	branchAndEmailMap map[string]string
 	repo              string = "sspu-cryptography-research-group/problem-solving"
-	githubToken              = "this is a secrert token,if you want to run this code,please generate your own token and replace it!"
+	//repo        = "OrangeDou/QHTLC"
+	githubToken = "this is a secret token,if you want to run main code,please generate your own token and replace it!"
 )
 
 func main() {
