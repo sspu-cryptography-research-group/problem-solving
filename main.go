@@ -14,8 +14,7 @@ import (
 var (
 	branchAndEmailMap map[string]string
 	repo              string = "sspu-cryptography-research-group/problem-solving"
-	//repo        = "OrangeDou/QHTLC"
-	githubToken = "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"
+	githubToken              = "this is a secrert token,if you want to run this code,please generate your own token and replace it!"
 )
 
 func main() {
@@ -86,7 +85,6 @@ func main() {
 			if len(commits) == 0 {
 				log.Printf(time.Now().String()+":No commits for branch %s today.\n", branch)
 				utils.SendEmail(branch, email)
-				//utils.SendEmail2(email)
 			} else {
 				log.Printf(time.Now().String()+":Commits found for branch %s today: %+v\n", branch, commits)
 			}
