@@ -27,11 +27,12 @@ func RecordStatus(dev string, commitCount int, resetContinuesDay bool) bool {
 		return false
 	}
 	//更新用户commit记录
-	user.Commit_days += 1
 	if resetContinuesDay {
 		user.Continuous_days = 0
+
 	} else {
 		user.Continuous_days += 1
+		user.Commit_days += 1
 	}
 	user.Date = time.Now()
 
@@ -44,7 +45,7 @@ func RecordStatus(dev string, commitCount int, resetContinuesDay bool) bool {
 }
 
 func connectDB() *gorm.DB {
-	dsn := "root:wenqiang@tcp(101.133.169.145:3306)/daily_commit?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "root:_@tcp(101.133.169.145:3306)/daily_commit?charset=utf8mb4&parseTime=True&loc=Local"
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		SkipDefaultTransaction: true,
 	})
