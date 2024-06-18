@@ -11,11 +11,11 @@ import (
 )
 
 var (
-	Token             = "this is a secret token,if you want to run main code,please generate your own token and replace it!"
 	resetContinuesDay bool
 )
 
-func Checkout(branchAndEmailMap map[string]string, today, repo string) error {
+func Checkout(branchAndEmailMap map[string]string, today string) error {
+	repo, token, dbconf := utils.GetConfig()
 	for branch, email := range branchAndEmailMap {
 		url := fmt.Sprintf("https://api.github.com/repos/%s/commits?sha=%s&since=%sT00:00:00Z", repo, branch, today)
 
@@ -27,7 +27,7 @@ func Checkout(branchAndEmailMap map[string]string, today, repo string) error {
 		}
 
 		// 设置请求头，添加认证信息
-		req.Header.Add("Authorization", "Bearer "+Token)
+		req.Header.Add("Authorization", "Bearer "+token)
 
 		// 发送请求
 		client := &http.Client{}
@@ -65,7 +65,7 @@ func Checkout(branchAndEmailMap map[string]string, today, repo string) error {
 				resetContinuesDay = false
 
 			}
-			utils.RecordStatus(branch, email, 1, resetContinuesDay)
+			utils.RecordStatus(branch, email, 1, resetContinuesDay, dbconf)
 		} else {
 			log.Printf(time.Now().String()+":Failed to fetch commits, status code: %d\n", resp.StatusCode)
 		}

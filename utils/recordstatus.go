@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"log"
 	"time"
 
@@ -17,8 +18,8 @@ type user_commit_statu struct {
 	Continuous_days int       `gorm:"type:int;not null"`
 }
 
-func RecordStatus(dev, email string, commitCount int, resetContinuesDay bool) bool {
-	db := connectDB()
+func RecordStatus(dev, email string, commitCount int, resetContinuesDay bool, dbconf MysqlConf) bool {
+	db := connectDB(dbconf)
 	user := user_commit_statu{}
 
 	result := db.First(&user, "dev_name = ?", dev)
@@ -45,8 +46,8 @@ func RecordStatus(dev, email string, commitCount int, resetContinuesDay bool) bo
 	return true
 }
 
-func connectDB() *gorm.DB {
-	dsn := "root:_@tcp(101.133.169.145:3306)/daily_commit?charset=utf8mb4&parseTime=True&loc=Local"
+func connectDB(dbconf MysqlConf) *gorm.DB {
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", dbconf.User, dbconf.Password, dbconf.Server, dbconf.Db)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
 		SkipDefaultTransaction: true,
 	})
