@@ -1,3 +1,4 @@
 /runCron.*
 /go.sum
 /config.yaml
+/participant.json
