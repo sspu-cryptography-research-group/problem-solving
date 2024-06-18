@@ -12,7 +12,7 @@ import (
 type user_commit_statu struct {
 	Id              int       `gorm:"primaryKey;"`
 	Date            time.Time `gorm:"type:date;not null"`
-	Dev_name        string    `gorm:"type:varchar(10);not null"`
+	Dev_name        string    `gorm:"type:varchar(30);not null"`
 	Email           string    `gorm:"type:varchar(30);not null"`
 	Commit_days     int       `gorm:"type:int;not null"`
 	Continuous_days int       `gorm:"type:int;not null"`
@@ -24,7 +24,6 @@ func RecordStatus(dev, email string, commitCount int, resetContinuesDay bool, db
 
 	result := db.First(&user, "dev_name = ?", dev)
 	if result.Error != nil {
-		log.Println("Failed to find user,now create him/her...", result.Error)
 		CreateUserByBranchAndEmail(db, dev, email, time.Now(), 1, 1)
 		return false
 	}
@@ -67,6 +66,13 @@ func CreateUserByBranchAndEmail(db *gorm.DB, dev, email string, date time.Time, 
 	user.Commit_days = commitDays
 	user.Continuous_days = continuous_days
 
-	db.Save(&user)
+	result := db.Create(&user)
+	if result.Error != nil {
+		// 处理错误
+		log.Println("Error inserting data:", result.Error)
+	} else {
+		// 插入成功
+		log.Println("Success to create user with ID:", user.Dev_name)
+	}
 	return true
 }
