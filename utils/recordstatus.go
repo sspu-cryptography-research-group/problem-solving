@@ -17,13 +17,14 @@ type user_commit_statu struct {
 	Continuous_days int       `gorm:"type:int;not null"`
 }
 
-func RecordStatus(dev string, commitCount int, resetContinuesDay bool) bool {
+func RecordStatus(dev, email string, commitCount int, resetContinuesDay bool) bool {
 	db := connectDB()
 	user := user_commit_statu{}
 
 	result := db.First(&user, "dev_name = ?", dev)
 	if result.Error != nil {
-		log.Println("Failed to find user", result.Error)
+		log.Println("Failed to find user,now create him/her...", result.Error)
+		CreateUserByBranchAndEmail(db, dev, email, time.Now(), 1, 1)
 		return false
 	}
 	//更新用户commit记录
@@ -55,4 +56,16 @@ func connectDB() *gorm.DB {
 	}
 
 	return db
+}
+
+func CreateUserByBranchAndEmail(db *gorm.DB, dev, email string, date time.Time, commitDays, continuous_days int) bool {
+	user := user_commit_statu{}
+	user.Dev_name = dev
+	user.Email = email
+	user.Date = date
+	user.Commit_days = commitDays
+	user.Continuous_days = continuous_days
+
+	db.Save(&user)
+	return true
 }

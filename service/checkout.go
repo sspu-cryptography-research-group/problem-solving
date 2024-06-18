@@ -11,8 +11,7 @@ import (
 )
 
 var (
-	Token = "this is a secret token,if you want to run main code,please generate your own token and replace it!"
-
+	Token             = "this is a secret token,if you want to run main code,please generate your own token and replace it!"
 	resetContinuesDay bool
 )
 
@@ -66,7 +65,7 @@ func Checkout(branchAndEmailMap map[string]string, today, repo string) error {
 				resetContinuesDay = false
 
 			}
-			utils.RecordStatus(branch, 1, resetContinuesDay)
+			utils.RecordStatus(branch, email, 1, resetContinuesDay)
 		} else {
 			log.Printf(time.Now().String()+":Failed to fetch commits, status code: %d\n", resp.StatusCode)
 		}
