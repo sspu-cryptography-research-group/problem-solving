@@ -3,3 +3,5 @@
 /config.yaml
 participant.json
 participant-test.json
+admin/test.go
+.vscode

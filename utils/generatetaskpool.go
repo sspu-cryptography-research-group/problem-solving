@@ -14,8 +14,8 @@ var (
 	singleMap         = make(map[string]string, 0)
 )
 
-func GenerateTaskPool() []map[string]string {
-	file, err := os.Open("participant.json")
+func GenerateTaskPool(filePath string) []map[string]string {
+	file, err := os.Open(filePath)
 	if err != nil {
 		log.Println(time.Now().String()+":Error opening file:", err)
 		return nil
