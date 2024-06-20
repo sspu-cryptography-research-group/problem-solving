@@ -5,3 +5,5 @@ participant.json
 participant-test.json
 admin/test.go
 .vscode
+.github
+
