@@ -9,7 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceFolder}/Golang/Top100/04-移动0.go"
+            "program": "${workspaceFolder}/Golang/Top100/06-三数之和.go"
         }
     ]
 }
