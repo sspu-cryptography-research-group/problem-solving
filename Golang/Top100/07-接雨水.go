@@ -1,5 +1,6 @@
 package main
 
+// 动态规划法
 func trap(height []int) (ans int) {
 	n := len(height)
 	if n == 0 {
